@@ -1,21 +1,28 @@
 import React from 'react';
 
 export default function Form(props) {
-    const { values } = props;
+    const { values, update, submit } = props;
 
     const onChange = event => {
+        const {name, value} = event.target;
+        update(name, value);
+    }
 
+    const onSubmit = event => {
+        event.preventDefault();
+        submit();
     }
 
     return(
-        <form>
+        <form onSubmit={onSubmit}>
             <label>
                 <input 
                     name='name'
                     value={values.name}
                     type='text'
                     onChange={onChange}
-                />
+                    placeholder='your name...'
+                    />
             </label>
             <label>
                 <input 
@@ -23,6 +30,7 @@ export default function Form(props) {
                     value={values.email}
                     type='email'
                     onChange={onChange}
+                    placeholder='your email...'
                 />
             </label>
             <label>
@@ -40,7 +48,7 @@ export default function Form(props) {
                     <option value='machine-learning'>Machine Learning</option>
                 </select>
             </label>
-            <div>
+            <div className='submit'>
                 <button>Submit</button>
             </div>
         </form>
